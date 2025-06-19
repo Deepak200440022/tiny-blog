@@ -37,19 +37,37 @@
     main {
       max-width: 800px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 1rem;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     article {
-      padding: 2rem;
+      border-bottom: 1px solid #ddd;
+      padding: 2rem 0;
+    }
+    article:last-child {
+      border-bottom: none;
     }
     article h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      margin: 0 0 0.5rem;
+    }
+    article a {
+      color: #222;
+      text-decoration: none;
+    }
+    article a:hover {
+      text-decoration: underline;
+    }
+    article time {
+      display: block;
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
     }
     article p {
       line-height: 1.6;
+      margin-top: 1rem;
     }
     footer {
       background-color: #222;
@@ -65,19 +83,29 @@
     <h1>MindSculptor</h1>
     <p>Decoding the world, one post at a time.</p>
   </header>
+
   <nav>
     <a href="#">Home</a>
     <a href="#">Articles</a>
     <a href="#">Projects</a>
     <a href="#">About</a>
   </nav>
+
   <main>
+    {% for post in posts %}
     <article>
-      <h2>Building Intuition Before Tools</h2>
-      <p>In a world obsessed with frameworks and libraries, it's easy to forget that understanding is upstream of implementation. Python won't make you a thinker. JavaScript won't design your ideas. Every tool is an extension of a mental model—if the model is broken, the tool amplifies your confusion.</p>
-      <p>This blog exists to remind you: learn concepts, not just syntax. Understand algorithms before touching TensorFlow. Understand structure before React. The real compiler is your brain. Everything else just outputs your assumptions in code.</p>
+      <h2><a href="#">{{ post.title }}</a></h2>
+      <time>Created: {{ post.created_date }} | Published: {{ post.published_date }}</time>
+      <p>{{ post.text|linebreaksbr }}</p>
     </article>
+    {% empty %}
+    <article>
+      <h2>No posts available</h2>
+      <p>Stay tuned—content is being forged.</p>
+    </article>
+    {% endfor %}
   </main>
+
   <footer>
     &copy; 2025 MindSculptor. Built with clarity.
   </footer>
