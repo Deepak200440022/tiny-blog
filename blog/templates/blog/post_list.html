@@ -1,100 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MindSculptor | Thoughts in Code</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background-color: #222;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    nav {
-      background-color: #444;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 1rem 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    article {
-      border-bottom: 1px solid #ddd;
-      padding: 2rem 0;
-    }
-    article:last-child {
-      border-bottom: none;
-    }
-    article h2 {
-      font-size: 1.8rem;
-      margin: 0 0 0.5rem;
-    }
-    article a {
-      color: #222;
-      text-decoration: none;
-    }
-    article a:hover {
-      text-decoration: underline;
-    }
-    article time {
-      display: block;
-      color: #777;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-    article p {
-      line-height: 1.6;
-      margin-top: 1rem;
-    }
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>MindSculptor</h1>
-    <p>Decoding the world, one post at a time.</p>
-  </header>
-
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Articles</a>
-    <a href="#">Projects</a>
-    <a href="#">About</a>
-  </nav>
-
-  <main>
-    {% for post in posts %}
+{% extends 'blog/base.html' %}
+{% block content %}
+  {% for post in posts %}
     <article>
-      <h2><a href="#">{{ post.title }}</a></h2>
+      <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
       <time>Created: {{ post.created_date }} | Published: {{ post.published_date }}</time>
       <p>{{ post.text|linebreaksbr }}</p>
     </article>
@@ -104,10 +12,4 @@
       <p>Stay tuned—content is being forged.</p>
     </article>
     {% endfor %}
-  </main>
-
-  <footer>
-    &copy; 2025 MindSculptor. Built with clarity.
-  </footer>
-</body>
-</html>
+{% endblock %}
