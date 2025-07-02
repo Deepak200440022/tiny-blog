@@ -1,103 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic Meta Setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MindSculptor | Thoughts in Code</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background-color: #222;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    nav {
-      background-color: #444;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 1rem 0;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    article {
-      border-bottom: 1px solid #ddd;
-      padding: 2rem 0;
-    }
-    article:last-child {
-      border-bottom: none;
-    }
-    article h2 {
-      font-size: 1.8rem;
-      margin: 0 0 0.5rem;
-    }
-    article a {
-      color: #222;
-      text-decoration: none;
-    }
-    article a:hover {
-      text-decoration: underline;
-    }
-    article time {
-      display: block;
-      color: #777;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-    article p {
-      line-height: 1.6;
-      margin-top: 1rem;
-    }
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Django Static Files -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'delete_button.css' %}">
+  <link rel="stylesheet" href="{% static 'base_design.css' %}">
+
+  <!-- Page Title -->
+  <title>Blogify | Crafted Perspectives</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>MindSculptor</h1>
-    <p>Decoding the world, one post at a time.</p>
+
+<body class="bg-white text-black font-sans">
+
+  <!-- Header Navigation Bar -->
+  <header class="w-full max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="text-lg font-semibold tracking-tight">
+      Blogify
+    </div>
+    <nav class="flex gap-8 text-gray-500 text-sm font-medium">
+      {% if request.path != '/' and request.resolver_match %}
+        <a href="{% url 'post_list' %}" class="hover:text-black">Home</a>
+      {% endif %}
+    </nav>
   </header>
 
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Articles</a>
-    <a href="#">Projects</a>
-    <a href="#">About</a>
-  </nav>
+  <!-- Main Blog Content Area -->
+  <main class="max-w-screen-md mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-1">Blog</h1>
+    <p class="text-gray-500 mb-8">Latest stories and insights.</p>
 
-  <main>
-      {% block content %}
-      {% endblock %}
+    <!-- Search Form Only on Homepage -->
+    {% if request.path == '/' %}
+    <form method="get" action="{% url 'post_list' %}" class="search-container mb-8" id="searchForm">
+      <div class="top-break"></div>
+      <div class="bottom-break"></div>
+      <input
+        type="text"
+        class="search-input"
+        id="searchInput"
+        autocomplete="off"
+        name="q"
+        value="{{ request.GET.q|default:'' }}"
+      />
+      <span class="search-placeholder" id="placeholder">Search</span>
+      <i class="fas fa-search search-icon" id="searchIcon"></i>
+    </form>
+    {% endif %}
+
+    <!-- Block for Injecting Page-Specific Content -->
+    {% block content %}{% endblock %}
   </main>
 
-  <footer>
-    &copy; 2025 MindSculptor. Built with clarity.
-  </footer>
+  <!-- Floating 'New Post' Button (Visible Only if Authenticated and Not on Post Creation Page) -->
+  {% if user.is_authenticated and request.path == '/' %}
+  <div class="container fixed-button">
+    <a href="{% url 'post_new' %}" class="button type--C">
+      <div class="button__line"></div>
+      <div class="button__line"></div>
+      <span class="button__text">NEW</span>
+      <div class="button__drow1"></div>
+      <div class="button__drow2"></div>
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Core JavaScript Logic -->
+  <script src="{% static 'base_logic.js' %}"></script>
+
 </body>
 </html>
+
+
+<!--eror page  , edit button -->

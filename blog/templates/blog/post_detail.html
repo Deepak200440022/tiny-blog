@@ -1,15 +1,43 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-<article class="post">
+  {# Article container for the post #}
+  <article class="post">
+
+    {# Display published date if available #}
     {% if post.published_date %}
-        <time class="date text-sm text-gray-500">
-            {{ post.published_date }}
-        </time>
+      <time class="date text-sm text-gray-500">
+        {{ post.published_date }}
+      </time>
     {% endif %}
-    <h2 class="text-2xl font-bold mt-2 mb-4">{{ post.title }}</h2>
+
+  {# Post title and Edit button in a horizontal layout #}
+    <div class="flex items-center justify-between mt-2 mb-4">
+      <h2 class="text-2xl font-bold">{{ post.title }}</h2>
+      {% if user.is_authenticated %}
+     <div class="ml-4">
+    <a href="{% url 'post_edit' pk=post.pk %}"
+       class="inline-flex items-center justify-center w-10 h-10 bg-gray-100 rounded-md hover:bg-gray-200 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+           class="w-5 h-5 text-gray-800">
+        <!-- Pencil -->
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.862 3.487a2.1 2.1 0 113.02 2.92L8.297 17.992 4 20l2.008-4.297L16.862 3.487z" />
+        <!-- Bottom line only -->
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M5 21h14" />
+      </svg>
+    </a>
+  </div>
+      {% endif %}
+    </div>
+
+    {# Post content body with preserved whitespace formatting #}
     <p class="text-base leading-relaxed whitespace-pre-line">
-        {{ post.text }}
+      {{ post.text }}
     </p>
-</article>
+
+
+  </article>
 {% endblock %}
