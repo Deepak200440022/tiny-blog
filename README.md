@@ -27,7 +27,7 @@ It supports CRUD operations for admin users and read/search access for public us
 ![Admin Homepage](assets/homepage.png)
 
 #### Post Detail with Edit Icon
-![Post Detail](assets/post_detail.png)
+![Post Detail](admin-side-post.png)
 
 #### Create New Post Form
 ![New Post](assets/new_post.png)
