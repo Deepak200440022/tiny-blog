@@ -24,26 +24,26 @@ It supports CRUD operations for admin users and read/search access for public us
 ### Admin Views
 
 #### Homepage with New Button and Delete Icon
-![Admin Homepage](assets/homepage.png)
+![Admin Homepage](assets/amin-side-homepage.png)
 
 #### Post Detail with Edit Icon
 ![Post Detail](assets/admin-side-post.png)
 
 #### Create New Post Form
-![New Post](assets/new_post.png)
+![New Post](assets/new-post-form.png)
 
 ### Common
 
 #### 404 Page
-![404 Page](assets/404.png)
+![404 Page](assets/page-not-found.png)
 
 ### User Views
 
 #### Homepage with View-Only Access
-![User Homepage](assets/user_home.png)
+![User Homepage](assets/user-homepage.png)
 
 #### No Posts State
-![No Posts](assets/no_posts.png)
+![No Posts](assets/search-result.png)
 
 ---
 
